@@ -1,0 +1,54 @@
+body,
+h1,
+p,
+input,
+button {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.container {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.screen {
+  margin: 70px 0 0 0;
+}
+
+.screen__title {
+  margin: 0 0 41px 0;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input__expens {
+  width: 484px;
+  height: 58px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.input__expens::-webkit-inner-spin-button {
+  display: none;
+}
+
+.input__btn {
+  width: 370px;
+  height: 58px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0094ff;
+  color: #ffff;
+}
+
+.input__btn:hover {
+  cursor: pointer;
+}
