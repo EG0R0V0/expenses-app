@@ -52,3 +52,11 @@ button {
 .input__btn:hover {
   cursor: pointer;
 }
+
+.historyElement {
+  color: #0094ff;
+}
+
+.expenesHistoryList {
+  list-style-type: decimal;
+}
