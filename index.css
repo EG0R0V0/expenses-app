@@ -27,6 +27,7 @@ button {
 .input {
   display: flex;
   justify-content: space-between;
+  margin: 0 0 51px 0;
 }
 
 .input__expens {
@@ -53,10 +54,57 @@ button {
   cursor: pointer;
 }
 
+.information-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.col_left {
+  width: 484px;
+}
+
+.col_right {
+  width: 370px;
+}
+
+.information-history {
+  margin: 0 0 21px 0;
+}
+
 .historyElement {
   color: #0094ff;
 }
 
 .expenesHistoryList {
   list-style-type: decimal;
+}
+
+.status {
+  color: rgb(53, 166, 53);
+}
+
+.status_red {
+  color: red;
+}
+
+.information-history,
+.information-limit,
+.information-status,
+.information-sum {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.limit,
+.status,
+.sum {
+  font-weight: 400;
+}
+
+.information-limit {
+  margin: 0 0 13px;
+}
+
+.information-sum {
+  margin: 0 0 35px 0;
 }

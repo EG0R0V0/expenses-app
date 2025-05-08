@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="screen">
+      <section class="screen">
         <h1 class="screen__title">Учет расходов</h1>
         <div class="input">
           <input
@@ -19,14 +19,24 @@
           />
           <button class="js-input__btn input__btn">Добавить</button>
         </div>
-        <div>
-          <p>ЛИМИТ: <span class="js-limit"></span> руб.</p>
-          <p>Сумма трат составляет: <span class="js-sum">0 </span> руб.</p>
-          <p>Статус: <span class="js-status"></span></p>
+        <div class="information-block">
+          <div class="col_left">
+            <p class="information-limit">
+              Лимит: <span class="js-limit limit"></span>
+            </p>
+            <p class="information-sum">
+              Сумма трат: <span class="js-sum sum"></span>
+            </p>
+            <p class="information-status">
+              Статус: <span class="js-status status"></span>
+            </p>
+          </div>
+          <div class="col_right">
+            <h2 class="information-history">История:</h2>
+            <div class="js-history"></div>
+          </div>
         </div>
-        <h2>История</h2>
-        <div class="js-history"></div>
-      </div>
+      </section>
     </div>
 
     <script src="index.js"></script>

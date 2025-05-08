@@ -1,5 +1,8 @@
 const LIMIT = 10000;
-const expenses = [];
+const CURRENCY = 'руб.';
+const STATUS_IN_LIMIT = 'все хорошо!';
+const STATUS_OUT_OF_LIMIT = 'все плохо!';
+const STATUS_OUT_OF_LIMIT_CLASSNAME = 'status_red';
 
 const pushExpenseNode = document.querySelector('.js-input__btn');
 const inputExpenseNode = document.querySelector('.js-input__expens');
@@ -8,43 +11,89 @@ const sumNode = document.querySelector('.js-sum');
 const limitNode = document.querySelector('.js-limit');
 const statusNode = document.querySelector('.js-status');
 
-limitNode.innerText = LIMIT;
+const expenses = [];
+
+init(expenses);
 
 pushExpenseNode.addEventListener('click', function () {
-    //1. проверяем наличие значения в поле ввода
-    if (inputExpenseNode.value === '') { // или !inputExpenseNode.value
+    const expense = getExpenseFromUser();
+
+    if (!expense) {
         return;
     }
 
-    //2. делаем строку числом
-    const expense = parseInt(inputExpenseNode.value)
+    trackExpense(expense);
 
-    //3. после нажатия обнуляем поля ввода
-    inputExpenseNode.value = '';
+    render(expenses)
+})
 
-    //4. добавляем значение в массив
-    expenses.push(expense);
+function render(expenses) {
+    const sum = calculateExpenses(expenses);
 
-    let expensesListHTML = '';
+    renderHistory(expenses);
+    renderSum(sum);
+    renderStatus(sum);
+}
 
-    expenses.forEach(element => {
-        const elementHTML = `<li class = 'historyElement'>${element} руб.</li>`;
-        expensesListHTML += elementHTML;
-    });
+function init(expenses) {
+    limitNode.innerText = `${LIMIT} ${CURRENCY}`;
+    statusNode.innerText = STATUS_IN_LIMIT;
+    sumNode.innerText = `${calculateExpenses(expenses)} ${CURRENCY}`;
+}
 
-    historyNode.innerHTML = `<ol class='expenesHistoryList'>${expensesListHTML}</ol>`;
 
-    //5. производится подсчет суммы трат
+function calculateExpenses(expenses) {
+    //производится подсчет суммы трат
     let sum = 0;
     expenses.forEach(element => {
         sum += element;
     });
-    sumNode.innerText = sum;
 
-    //6. проверяем выход за предел лимита
-    if (sum <= LIMIT) {
-        statusNode.innerText = 'Все хорошо!';
-    } else {
-        statusNode.innerText = 'Все плохо!';
+    return sum;
+}
+
+function getExpenseFromUser() {
+    if (inputExpenseNode.value === '') {    // проверяем наличие значения в поле вводаили !inputExpenseNode.value
+        return null;
     }
-})
+
+    const expense = parseInt(inputExpenseNode.value)     // делаем строку числом
+
+    clearInput()
+
+    return expense;
+}
+
+function trackExpense(expense) {
+    expenses.push(expense);     // добавляем значение в массив
+}
+
+function clearInput() {
+    inputExpenseNode.value = '';     // после нажатия обнуляем поля ввода
+}
+
+function renderHistory(expenses) {
+
+    let expensesListHTML = '';
+
+    expenses.forEach(element => {
+        const elementHTML = `<li class = 'historyElement'>${element} ${CURRENCY}</li>`;
+        expensesListHTML += elementHTML;
+    });
+
+    historyNode.innerHTML = `<ol class='expenesHistoryList'>${expensesListHTML}</ol>`;
+}
+
+function renderSum(sum) {
+    sumNode.innerText = `${sum} ${CURRENCY}`;
+}
+
+function renderStatus(sum) {
+    // проверяем выход за предел лимита
+    if (sum <= LIMIT) {
+        statusNode.innerText = STATUS_IN_LIMIT;
+    } else {
+        statusNode.innerText = STATUS_OUT_OF_LIMIT;
+        statusNode.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
+    }
+}
