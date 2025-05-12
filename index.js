@@ -1,5 +1,4 @@
 const LIMIT = 10000;
-const CURRENCY = 'руб.';
 const STATUS_IN_LIMIT = 'все хорошо!';
 const STATUS_OUT_OF_LIMIT = 'все плохо!';
 const STATUS_OUT_OF_LIMIT_CLASSNAME = 'status_red';
@@ -36,9 +35,9 @@ function render(expenses) {
 }
 
 function init(expenses) {
-    limitNode.innerText = `${LIMIT} ${CURRENCY}`;
+    limitNode.innerText = LIMIT;
     statusNode.innerText = STATUS_IN_LIMIT;
-    sumNode.innerText = `${calculateExpenses(expenses)} ${CURRENCY}`;
+    sumNode.innerText = calculateExpenses(expenses);
 }
 
 
@@ -77,7 +76,7 @@ function renderHistory(expenses) {
     let expensesListHTML = '';
 
     expenses.forEach(element => {
-        const elementHTML = `<li class = 'historyElement'>${element} ${CURRENCY}</li>`;
+        const elementHTML = `<li class = 'historyElement'>${element}</li>`;
         expensesListHTML += elementHTML;
     });
 
@@ -85,7 +84,7 @@ function renderHistory(expenses) {
 }
 
 function renderSum(sum) {
-    sumNode.innerText = `${sum} ${CURRENCY}`;
+    sumNode.innerText = sum;
 }
 
 function renderStatus(sum) {
