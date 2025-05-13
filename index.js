@@ -1,8 +1,8 @@
 const LIMIT = 10000;
-const CURRENCY = 'руб.';
 const STATUS_IN_LIMIT = 'все хорошо!';
 const STATUS_OUT_OF_LIMIT = 'все плохо!';
 const STATUS_OUT_OF_LIMIT_CLASSNAME = 'status_red';
+const CURRENCY = 'руб.'
 
 const pushExpenseNode = document.querySelector('.js-input__btn');
 const inputExpenseNode = document.querySelector('.js-input__expens');
@@ -10,8 +10,9 @@ const historyNode = document.querySelector('.js-history');
 const sumNode = document.querySelector('.js-sum');
 const limitNode = document.querySelector('.js-limit');
 const statusNode = document.querySelector('.js-status');
+const clearBtnNode = document.getElementById("clearBtn");
 
-const expenses = [];
+let expenses = [];
 
 init(expenses);
 
@@ -27,6 +28,11 @@ pushExpenseNode.addEventListener('click', function () {
     render(expenses)
 })
 
+function trackExpense(expense) {
+    expenses.push(expense);     // добавляем значение в массив
+}
+
+
 function render(expenses) {
     const sum = calculateExpenses(expenses);
 
@@ -36,9 +42,9 @@ function render(expenses) {
 }
 
 function init(expenses) {
-    limitNode.innerText = `${LIMIT} ${CURRENCY}`;
+    limitNode.innerText = LIMIT;
     statusNode.innerText = STATUS_IN_LIMIT;
-    sumNode.innerText = `${calculateExpenses(expenses)} ${CURRENCY}`;
+    sumNode.innerText = calculateExpenses(expenses);
 }
 
 
@@ -64,9 +70,6 @@ function getExpenseFromUser() {
     return expense;
 }
 
-function trackExpense(expense) {
-    expenses.push(expense);     // добавляем значение в массив
-}
 
 function clearInput() {
     inputExpenseNode.value = '';     // после нажатия обнуляем поля ввода
@@ -93,7 +96,16 @@ function renderStatus(sum) {
     if (sum <= LIMIT) {
         statusNode.innerText = STATUS_IN_LIMIT;
     } else {
-        statusNode.innerText = STATUS_OUT_OF_LIMIT;
+        const out_of_limit = sum - LIMIT;
+        statusNode.innerText = `${STATUS_OUT_OF_LIMIT} (-${out_of_limit} ${CURRENCY})`;
         statusNode.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
     }
 }
+
+const clearBtnHandler = () => {
+    expenses = [];
+    render(expenses);
+    statusNode.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
+};
+
+clearBtnNode.addEventListener("click", clearBtnHandler);
